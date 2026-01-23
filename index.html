@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Zodiaco</title>
+
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b132b">
+
+<style>
+:root{
+  --bg1:#0b132b;
+  --bg2:#1c2541;
+  --accent:#3a86ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  font-family:system-ui, sans-serif;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:white;
+}
+.card{
+  width:100%;
+  max-width:420px;
+  padding:2rem;
+  background:rgba(0,0,0,.35);
+  border-radius:28px;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+  text-align:center;
+}
+h1{margin:0 0 1.5rem}
+input,select,button{
+  width:100%;
+  padding:1rem;
+  margin-top:.9rem;
+  border-radius:18px;
+  border:none;
+  font-size:1rem;
+}
+input,select{background:white}
+button{
+  margin-top:1.4rem;
+  background:var(--accent);
+  color:white;
+  font-weight:700;
+}
+.result{
+  margin-top:1.6rem;
+  font-size:1.05rem;
+  line-height:1.55;
+}
+.badge{font-size:1.5rem}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <h1>🔮 Zodiaco</h1>
+
+  <input id="nombre" placeholder="Nombre">
+  <input id="anio" type="number" placeholder="Año">
+  <input id="dia" type="number" placeholder="Día">
+
+  <select id="mes">
+    <option value="">Mes</option>
+    <option value="1">Enero</option><option value="2">Febrero</option>
+    <option value="3">Marzo</option><option value="4">Abril</option>
+    <option value="5">Mayo</option><option value="6">Junio</option>
+    <option value="7">Julio</option><option value="8">Agosto</option>
+    <option value="9">Septiembre</option><option value="10">Octubre</option>
+    <option value="11">Noviembre</option><option value="12">Diciembre</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+  <div id="out" class="result"></div>
+</div>
+
+<script>
+function signoOccidental(d,m){
+  const s=[
+    ["Capricornio","♑",12,22,1,19],["Acuario","♒",1,20,2,18],
+    ["Piscis","♓",2,19,3,20],["Aries","♈",3,21,4,19],
+    ["Tauro","♉",4,20,5,20],["Géminis","♊",5,21,6,20],
+    ["Cáncer","♋",6,21,7,22],["Leo","♌",7,23,8,22],
+    ["Virgo","♍",8,23,9,22],["Libra","♎",9,23,10,22],
+    ["Escorpio","♏",10,23,11,21],["Sagitario","♐",11,22,12,21]
+  ];
+  return s.find(x=>(m==x[2]&&d>=x[3])||(m==x[4]&&d<=x[5]));
+}
+
+function zodiacoChino(a){
+  const z=[["Rata","🐭"],["Buey","🐮"],["Tigre","🐯"],["Conejo","🐰"],
+           ["Dragón","🐲"],["Serpiente","🐍"],["Caballo","🐴"],["Cabra","🐐"],
+           ["Mono","🐵"],["Gallo","🐔"],["Perro","🐶"],["Cerdo","🐷"]];
+  return z[(a-1900)%12];
+}
+
+function faseLunar(d,m,y){
+  const c=2551443, r=Date.UTC(1970,0,7,20,35)/1000;
+  const t=Date.UTC(y,m-1,d)/1000;
+  const f=(((t-r)%c)+c)%c/c;
+  const i=Math.round(f*8)%8;
+  const l=[["Luna nueva","🌑"],["Creciente","🌒"],["Cuarto creciente","🌓"],
+           ["Gibosa creciente","🌔"],["Luna llena","🌕"],
+           ["Gibosa menguante","🌖"],["Cuarto menguante","🌗"],["Menguante","🌘"]];
+  return l[i];
+}
+
+function diasParaCumple(d,m){
+  const h=new Date();
+  let c=new Date(h.getFullYear(),m-1,d);
+  if(c<h) c=new Date(h.getFullYear()+1,m-1,d);
+  return Math.ceil((c-h)/(1000*60*60*24));
+}
+
+function calcular(){
+  const n=nombre.value||"";
+  const a=+anio.value, d=+dia.value, m=+mes.value;
+  if(!a||!d||!m){ out.innerHTML="⚠️ Completa todos los datos"; return; }
+
+  const e=new Date().getFullYear()-a;
+  const s=signoOccidental(d,m);
+  const c=zodiacoChino(a);
+  const l=faseLunar(d,m,a);
+  const f=diasParaCumple(d,m);
+
+  out.innerHTML=`
+    <strong>${n}</strong><br>
+    Edad: <strong>${e}</strong><br><br>
+    ${s[1]} <strong>${s[0]}</strong><br>
+    ${c[1]} <strong>${c[0]}</strong><br>
+    ${l[1]} <strong>${l[0]}</strong><br><br>
+    🎉 Faltan <strong>${f}</strong> días para tu cumpleaños
+  `;
+}
+</script>
+</body>
+</html>
