@@ -141,5 +141,56 @@ function calcular(){
   `;
 }
 </script>
+
+<!-- ——— Bloque de extensión (NO intrusivo): añade días, horas y minutos vividos ——— -->
+<script>
+(function () {
+  const MS_MIN = 60 * 1000;
+  const MS_HR  = 60 * MS_MIN;
+  const MS_DIA = 24 * MS_HR;
+
+  // Calcula: días (medianoche → medianoche para robustez), y horas/minutos exactos
+  function difsVividos(d, m, y) {
+    const nacimiento = new Date(y, m - 1, d);
+    if (isNaN(nacimiento)) return null;
+
+    const ahora = new Date();
+
+    // Días vividos "enteros": comparamos medianoches para evitar DST y TZ issues
+    const n0 = new Date(nacimiento); n0.setHours(0,0,0,0);
+    const h0 = new Date(ahora);      h0.setHours(0,0,0,0);
+
+    const dias       = Math.floor((h0 - n0) / MS_DIA);
+    const horasTot   = Math.floor((ahora - nacimiento) / MS_HR);
+    const minutosTot = Math.floor((ahora - nacimiento) / MS_MIN);
+
+    return { dias, horasTot, minutosTot };
+  }
+
+  // Envolvemos calcular() para no modificar la lógica existente
+  const calcularOriginal = window.calcular;
+  window.calcular = function () {
+    // Ejecuta la función original
+    calcularOriginal();
+
+    // Toma los valores del formulario
+    const a = +document.getElementById('anio').value;
+    const d = +document.getElementById('dia').value;
+    const m = +document.getElementById('mes').value;
+
+    const res = difsVividos(d, m, a);
+    if (res) {
+      const { dias, horasTot, minutosTot } = res;
+      const out = document.getElementById('out');
+      out.innerHTML += `
+        <br>🗓️ Has vivido <strong>${dias.toLocaleString('es-MX')}</strong> días
+        <br>⏱️ Has vivido <strong>${horasTot.toLocaleString('es-MX')}</strong> horas
+        <br>🕒 Has vivido <strong>${minutosTot.toLocaleString('es-MX')}</strong> minutos
+      `;
+    }
+  };
+})();
+</script>
+
 </body>
 </html>
