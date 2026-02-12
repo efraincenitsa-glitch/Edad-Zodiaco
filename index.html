@@ -50,13 +50,13 @@ button{
   background:var(--accent);
   color:white;
   font-weight:700;
+  cursor:pointer;
 }
 .result{
   margin-top:1.6rem;
   font-size:1.05rem;
   line-height:1.55;
 }
-.badge{font-size:1.5rem}
 </style>
 </head>
 
@@ -123,9 +123,22 @@ function diasParaCumple(d,m){
 function calcular(){
   const n=nombre.value||"";
   const a=+anio.value, d=+dia.value, m=+mes.value;
-  if(!a||!d||!m){ out.innerHTML="⚠️ Completa todos los datos"; return; }
+  if(!a||!d||!m){ 
+    out.innerHTML="⚠️ Completa todos los datos"; 
+    return; 
+  }
 
-  const e=new Date().getFullYear()-a;
+  const hoy = new Date();
+  let e = hoy.getFullYear() - a;
+
+  // 🔥 Corrección de edad exacta
+  if (
+    hoy.getMonth() + 1 < m ||
+    (hoy.getMonth() + 1 === m && hoy.getDate() < d)
+  ) {
+    e--;
+  }
+
   const s=signoOccidental(d,m);
   const c=zodiacoChino(a);
   const l=faseLunar(d,m,a);
@@ -140,23 +153,19 @@ function calcular(){
     🎉 Faltan <strong>${f}</strong> días para tu cumpleaños
   `;
 }
-</script>
 
-<!-- ——— Bloque de extensión (NO intrusivo): añade días, horas y minutos vividos ——— -->
-<script>
+// —— Bloque extensión días, horas y minutos vividos ——
 (function () {
   const MS_MIN = 60 * 1000;
   const MS_HR  = 60 * MS_MIN;
   const MS_DIA = 24 * MS_HR;
 
-  // Calcula: días (medianoche → medianoche para robustez), y horas/minutos exactos
   function difsVividos(d, m, y) {
     const nacimiento = new Date(y, m - 1, d);
     if (isNaN(nacimiento)) return null;
 
     const ahora = new Date();
 
-    // Días vividos "enteros": comparamos medianoches para evitar DST y TZ issues
     const n0 = new Date(nacimiento); n0.setHours(0,0,0,0);
     const h0 = new Date(ahora);      h0.setHours(0,0,0,0);
 
@@ -167,13 +176,10 @@ function calcular(){
     return { dias, horasTot, minutosTot };
   }
 
-  // Envolvemos calcular() para no modificar la lógica existente
   const calcularOriginal = window.calcular;
   window.calcular = function () {
-    // Ejecuta la función original
     calcularOriginal();
 
-    // Toma los valores del formulario
     const a = +document.getElementById('anio').value;
     const d = +document.getElementById('dia').value;
     const m = +document.getElementById('mes').value;
