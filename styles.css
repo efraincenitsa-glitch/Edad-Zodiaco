@@ -505,8 +505,17 @@ button:hover{
         padding:12px;
     }
 
+    .hero img{
+        width:90px;
+        height:90px;
+    }
+
     .hero h1{
         font-size:30px;
+    }
+
+    .hero p{
+        font-size:14px;
     }
 
     .panel-form{
@@ -517,8 +526,17 @@ button:hover{
         padding:18px;
     }
 
+    .card h2{
+        font-size:20px;
+    }
+
     .acciones{
         grid-template-columns:1fr;
     }
 
+}
+
+html,
+body{
+    overflow-x:hidden;
 }
