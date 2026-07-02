@@ -355,10 +355,12 @@ return Math.ceil(
 
 function mostrar(id){
 
-document
-.getElementById(id)
-.classList
-.remove("hidden");
+const elemento =
+document.getElementById(id);
+
+if(elemento){
+    elemento.classList.remove("hidden");
+}
 
 }
 
@@ -373,16 +375,38 @@ JSON.stringify(data)
 
 function restaurar(){
 
-const data=localStorage.getItem("zodiacoPro");
+try{
 
-if(!data) return;
+    const data =
+    localStorage.getItem(
+        "zodiacoPro"
+    );
 
-const p=JSON.parse(data);
+    if(!data) return;
 
-nombre.value=p.nombre||"";
-dia.value=p.dia||"";
-mes.value=p.mes||"";
-anio.value=p.anio||"";
+    const p =
+    JSON.parse(data);
+
+document.getElementById("nombre").value =
+p.nombre || "";
+
+document.getElementById("dia").value =
+p.dia || "";
+
+document.getElementById("mes").value =
+p.mes || "";
+
+document.getElementById("anio").value =
+p.anio || "";
+
+}catch(error){
+
+    console.warn(
+        "Error restaurando datos:",
+        error
+    );
+
+}
 
 }
 
@@ -400,11 +424,32 @@ parseInt(document.getElementById("mes").value);
 const anioN=
 parseInt(document.getElementById("anio").value);
 
-if(!diaN || !mesN || !anioN){
+if(
+    Number.isNaN(diaN) ||
+    Number.isNaN(mesN) ||
+    Number.isNaN(anioN)
+){
+    alert(
+        "Completa todos los campos."
+    );
+    return;
+}
 
-alert("Completa todos los datos");
+if(
+    !diaN ||
+    !mesN ||
+    !anioN ||
+    diaN < 1 ||
+    diaN > 31 ||
+    mesN < 1 ||
+    mesN > 12 ||
+    anioN < 1900 ||
+    anioN > 2100
+){
 
-return;
+    alert("Ingresa una fecha válida.");
+
+    return;
 
 }
 
@@ -576,7 +621,7 @@ comunicacion:70,
 descripcion:"Persona estable, perseverante y enfocada en la seguridad."
 },
 
-Geminis:{
+"Géminis":{
 liderazgo:70,
 creatividad:95,
 empatia:75,
@@ -586,7 +631,7 @@ comunicacion:98,
 descripcion:"Gran capacidad de comunicación y adaptación."
 },
 
-Cancer:{
+"Cáncer":{
 liderazgo:65,
 creatividad:80,
 empatia:95,
@@ -760,10 +805,10 @@ Aries:
 Tauro:
 "Año de consolidación económica y estabilidad emocional.",
 
-Geminis:
+"Géminis":
 "Año con nuevas oportunidades de aprendizaje y relaciones.",
 
-Cancer:
+"Cáncer":
 "Año ideal para fortalecer vínculos familiares.",
 
 Leo:
@@ -842,8 +887,9 @@ chino,
 edad
 ){
 
-const perfil=
-PERFILES[signo.nombre];
+const perfil =
+PERFILES[signo.nombre] ||
+PERFILES["Aries"];
 
 mostrar("compatibilidadAmor");
 mostrar("compatibilidadTrabajo");
@@ -860,7 +906,7 @@ document.getElementById(
 
 <div class="compat">
 ${signo.compat.map(
-c=>`<span>❤️ ${c}</span>`
+c => `<span>❤️ ${c}</span>`
 ).join("")}
 </div>
 
@@ -872,7 +918,7 @@ document.getElementById(
 
 <div class="compat">
 ${signo.compat.map(
-c=>`<span>💼 ${c}</span>`
+c => `<span>💼 ${c}</span>`
 ).join("")}
 </div>
 
@@ -922,22 +968,22 @@ document.getElementById(
 
 ${crearBarra(
 "Energía Mental",
-Math.min(100,perfil.creatividad+5)
+Math.min(100, perfil.creatividad + 5)
 )}
 
 ${crearBarra(
 "Energía Emocional",
-Math.min(100,perfil.empatia+5)
+Math.min(100, perfil.empatia + 5)
 )}
 
 ${crearBarra(
 "Energía Espiritual",
-Math.min(100,perfil.intuicion+5)
+Math.min(100, perfil.intuicion + 5)
 )}
 
 ${crearBarra(
 "Energía Material",
-Math.min(100,perfil.disciplina+5)
+Math.min(100, perfil.disciplina + 5)
 )}
 
 `;
@@ -946,12 +992,12 @@ document.getElementById(
 "animalContenido"
 ).innerHTML=`
 
-${signo.animal}
+<h3>${signo.animal}</h3>
 
-<br><br>
-
+<p>
 Representa los valores simbólicos
 más relacionados con tu signo.
+</p>
 
 `;
 
@@ -959,12 +1005,12 @@ document.getElementById(
 "arbolContenido"
 ).innerHTML=`
 
-${signo.arbol}
+<h3>${signo.arbol}</h3>
 
-<br><br>
-
+<p>
 Árbol asociado a la energía natural
 de tu signo zodiacal.
+</p>
 
 `;
 
@@ -992,8 +1038,7 @@ signo.nombre
 
 document.getElementById(
 "textoIA"
-).innerHTML=
-
+).innerHTML =
 generarResumenIA(
 nombre,
 signo,
@@ -1001,4 +1046,12 @@ chino,
 edad
 );
 
+const acciones =
+document.getElementById("acciones");
+
+if(acciones){
+    acciones.classList.remove("hidden");
 }
+
+}
+
