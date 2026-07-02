@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Zodiaco Premium PRO</title>
+
+<meta name="theme-color" content="#0b132b">
+
+<link rel="apple-touch-icon" href="icons/icon-1024.png">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+
+<div class="app">
+
+    <header class="hero">
+
+        <img
+            src="icons/icon-1024.png"
+            alt="Zodiaco Premium"
+            class="logo"
+        >
+
+        <h1>🔮 Zodiaco Premium PRO</h1>
+
+        <p>
+            Descubre tu perfil astrológico completo,
+            compatibilidades, energía personal
+            y análisis avanzado.
+        </p>
+
+    </header>
+
+    <section class="panel-form">
+
+        <input
+            id="nombre"
+            type="text"
+            placeholder="Nombre completo"
+        >
+
+        <input
+            id="dia"
+            type="number"
+            min="1"
+            max="31"
+            placeholder="Día de nacimiento"
+        >
+
+        <select id="mes">
+
+            <option value="">Mes</option>
+
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+
+        </select>
+
+        <input
+            id="anio"
+            type="number"
+            min="1900"
+            max="2100"
+            placeholder="Año de nacimiento"
+        >
+
+        <button id="btnCalcular">
+            ✨ Calcular Perfil Completo
+        </button>
+
+    </section>
+
+    <!-- RESUMEN GENERAL -->
+
+    <section
+        id="resumenGeneral"
+        class="card hidden"
+    >
+        <h2>📋 Resumen General</h2>
+
+        <div id="resumenContenido"></div>
+
+    </section>
+
+    <!-- DATOS PRINCIPALES -->
+
+    <section
+        id="datosPrincipales"
+        class="card hidden"
+    >
+
+        <h2>⭐ Perfil Astrológico</h2>
+
+        <div id="perfilBasico"></div>
+
+    </section>
+
+    <!-- SIGNO OCCIDENTAL -->
+
+    <section
+        id="signoOccidental"
+        class="card hidden"
+    >
+
+        <h2>♈ Signo Occidental</h2>
+
+        <div id="infoOccidental"></div>
+
+    </section>
+
+    <!-- ZODIACO CHINO -->
+
+    <section
+        id="signoChino"
+        class="card hidden"
+    >
+
+        <h2>🐲 Zodiaco Chino</h2>
+
+        <div id="infoChino"></div>
+
+    </section>
+
+    <!-- FASE LUNAR -->
+
+    <section
+        id="faseLunar"
+        class="card hidden"
+    >
+
+        <h2>🌙 Fase Lunar</h2>
+
+        <div id="infoLunar"></div>
+
+    </section>
+
+    <!-- ESTADISTICAS -->
+
+    <section
+        id="estadisticas"
+        class="card hidden"
+    >
+
+        <h2>📊 Estadísticas de Vida</h2>
+
+        <div id="statsVida"></div>
+
+    </section>
+
+    <!-- COMPATIBILIDAD AMOROSA -->
+
+    <section
+        id="compatibilidadAmor"
+        class="card hidden"
+    >
+
+        <h2>❤️ Compatibilidad Amorosa</h2>
+
+        <div id="amorContenido"></div>
+
+    </section>
+
+    <!-- COMPATIBILIDAD LABORAL -->
+
+    <section
+        id="compatibilidadTrabajo"
+        class="card hidden"
+    >
+
+        <h2>💼 Compatibilidad Profesional</h2>
+
+        <div id="trabajoContenido"></div>
+
+    </section>
+
+    <!-- PERFIL PERSONALIDAD -->
+
+    <section
+        id="perfilPersonalidad"
+        class="card hidden"
+    >
+
+        <h2>🧠 Perfil de Personalidad</h2>
+
+        <div id="rasgos"></div>
+
+    </section>
+
+    <!-- BARRAS ENERGETICAS -->
+
+    <section
+        id="energia"
+        class="card hidden"
+    >
+
+        <h2>⚡ Perfil Energético</h2>
+
+        <div id="barrasEnergia"></div>
+
+    </section>
+
+    <!-- ANIMAL ESPIRITUAL -->
+
+    <section
+        id="animal"
+  on
+        id="arbol"
+        class="card hidden"
+    >
+
+        <h2>🌳 Árbol Simbólico</h2>
+
+        <div id="arbolContenido"></div>
+
+    </section>
+
+    <!-- PRONOSTICO -->
+
+    <section
+        id="pronostico"
+        class="card hidden"
+    >
+
+        <h2>🔮 Pronóstico</h2>
+
+        <div id="pronosticoContenido"></div>
+
+    </section>
+
+    <!-- RESUMEN IA -->
+
+    <section
+        id="resumenIA"
+        class="card hidden"
+    >
+
+        <h2>🤖 Interpretación Completa</h2>
+
+        <div id="textoIA"></div>
+
+    </section>
+
+    <!-- ACCIONES -->
+
+    <section
+        id="acciones"
+        class="card hidden"
+    >
+
+        <h2>📤 Opciones</h2>
+
+        <div class="acciones">
+
+            <button id="btnCompartir">
+                Compartir Resultado
+            </button>
+
+            <button id="btnPdf">
+                Descargar PDF
+            </button>
+
+            <button id="btnLimpiar">
+                Limpiar
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+js/app.jsscript>
+
+</body>
+</html>
