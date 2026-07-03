@@ -1,5 +1,3 @@
-alert("APPJS CARGADO");
-
 // ==========================================
 // ZODIACO PREMIUM PRO
 // PARTE 1
@@ -414,6 +412,8 @@ p.anio || "";
 
 function calcular(){
 
+alert("ENTRO A CALCULAR");
+
 const nombreTxt=
 document.getElementById("nombre").value.trim();
 
@@ -588,7 +588,7 @@ edad
 
 document.addEventListener(
 "DOMContentLoaded",
-()=>{
+function(){
 
 restaurar();
 
@@ -599,56 +599,17 @@ document.getElementById(
 
 if(btnCalcular){
 
-btnCalcular.addEventListener(
-"click",
-calcular
-);
+btnCalcular.onclick =
+function(){
+
+calcular();
+
+};
 
 }
 
-const btnCompartir =
-document.getElementById(
-"btnCompartir"
-);
-
-if(btnCompartir){
-
-btnCompartir.addEventListener(
-"click",
-compartirResultado
-);
-
 }
-
-const btnPdf =
-document.getElementById(
-"btnPdf"
 );
-
-if(btnPdf){
-
-btnPdf.addEventListener(
-"click",
-descargarPDF
-);
-
-}
-
-const btnLimpiar =
-document.getElementById(
-"btnLimpiar"
-);
-
-if(btnLimpiar){
-
-btnLimpiar.addEventListener(
-"click",
-limpiarFormulario
-);
-
-}
-
-});
 
 // =============================================
 // PARTE 2
@@ -1121,56 +1082,6 @@ alert("COMPARTIR FUNCIONA");
 
 }
 
-const texto =
-document.body.innerText;
-
-if(navigator.share){
-
-navigator.share({
-title:"Zodiaco Premium PRO",
-text:texto
-})
-.catch(error=>{
-
-console.warn(
-"Error al compartir:",
-error
-);
-
-});
-
-}else{
-
-if(navigator.clipboard){
-
-navigator.clipboard
-.writeText(texto)
-.then(()=>{
-
-alert(
-"Resultado copiado al portapapeles"
-);
-
-})
-.catch(()=>{
-
-alert(
-"No fue posible copiar el resultado."
-);
-
-});
-
-}else{
-
-alert(
-"Tu navegador no permite compartir ni copiar automáticamente."
-);
-
-}
-
-}
-
-}
 
 
 // =============================================
@@ -1193,9 +1104,6 @@ alert("PDF FUNCIONA");
 function limpiarFormulario(){
 
 alert("LIMPIAR FUNCIONA");
-
-}
-
 
 localStorage.removeItem(
 "zodiacoPro"
