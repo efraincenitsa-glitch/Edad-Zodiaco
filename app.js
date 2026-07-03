@@ -1115,6 +1115,10 @@ if(acciones){
 
 function compartirResultado(){
 
+alert("COMPARTIR FUNCIONA");
+
+}
+
 const texto =
 document.body.innerText;
 
@@ -1173,9 +1177,11 @@ alert(
 
 function descargarPDF(){
 
-window.print();
+alert("PDF FUNCIONA");
 
 }
+
+
 
 
 // =============================================
@@ -1183,6 +1189,11 @@ window.print();
 // =============================================
 
 function limpiarFormulario(){
+
+alert("LIMPIAR FUNCIONA");
+
+}
+
 
 localStorage.removeItem(
 "zodiacoPro"
