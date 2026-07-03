@@ -580,20 +580,74 @@ edad
 
 }
 
+// =============================================
+// INICIALIZACIÓN GENERAL
+// =============================================
+
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
 
 restaurar();
 
-document
-.getElementById("btnCalcular")
-.addEventListener(
+const btnCalcular =
+document.getElementById(
+"btnCalcular"
+);
+
+if(btnCalcular){
+
+btnCalcular.addEventListener(
 "click",
 calcular
 );
 
+}
+
+const btnCompartir =
+document.getElementById(
+"btnCompartir"
+);
+
+if(btnCompartir){
+
+btnCompartir.addEventListener(
+"click",
+compartirResultado
+);
+
+}
+
+const btnPdf =
+document.getElementById(
+"btnPdf"
+);
+
+if(btnPdf){
+
+btnPdf.addEventListener(
+"click",
+descargarPDF
+);
+
+}
+
+const btnLimpiar =
+document.getElementById(
+"btnLimpiar"
+);
+
+if(btnLimpiar){
+
+btnLimpiar.addEventListener(
+"click",
+limpiarFormulario
+);
+
+}
+
 });
+
 // =============================================
 // PARTE 2
 // COMPATIBILIDAD - PERSONALIDAD - IA
@@ -1055,3 +1109,149 @@ if(acciones){
 
 }
 
+// =============================================
+// COMPARTIR RESULTADO
+// =============================================
+
+function compartirResultado(){
+
+const texto =
+document.body.innerText;
+
+if(navigator.share){
+
+navigator.share({
+title:"Zodiaco Premium PRO",
+text:texto
+})
+.catch(error=>{
+
+console.warn(
+"Error al compartir:",
+error
+);
+
+});
+
+}else{
+
+if(navigator.clipboard){
+
+navigator.clipboard
+.writeText(texto)
+.then(()=>{
+
+alert(
+"Resultado copiado al portapapeles"
+);
+
+})
+.catch(()=>{
+
+alert(
+"No fue posible copiar el resultado."
+);
+
+});
+
+}else{
+
+alert(
+"Tu navegador no permite compartir ni copiar automáticamente."
+);
+
+}
+
+}
+
+}
+
+
+// =============================================
+// DESCARGAR PDF
+// =============================================
+
+function descargarPDF(){
+
+window.print();
+
+}
+
+
+// =============================================
+// LIMPIAR FORMULARIO
+// =============================================
+
+function limpiarFormulario(){
+
+localStorage.removeItem(
+"zodiacoPro"
+);
+
+const nombre =
+document.getElementById(
+"nombre"
+);
+
+if(nombre){
+nombre.value="";
+}
+
+const dia =
+document.getElementById(
+"dia"
+);
+
+if(dia){
+dia.value="";
+}
+
+const mes =
+document.getElementById(
+"mes"
+);
+
+if(mes){
+mes.value="";
+}
+
+const anio =
+document.getElementById(
+"anio"
+);
+
+if(anio){
+anio.value="";
+}
+
+const secciones =
+[
+"resumenGeneral",
+"datosPrincipales",
+"signoOccidental",
+"signoChino",
+"faseLunar",
+"estadisticas",
+"compatibilidadAmor",
+"compatibilidadTrabajo",
+"perfilPersonalidad",
+"energia",
+"animal",
+"arbol",
+"pronostico",
+"resumenIA",
+"acciones"
+];
+
+secciones.forEach(id=>{
+
+const elemento =
+document.getElementById(id);
+
+if(elemento){
+elemento.classList.add("hidden");
+}
+
+});
+
+}
