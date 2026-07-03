@@ -1,3 +1,4 @@
+
 // ==========================================
 // ZODIACO PREMIUM PRO
 // PARTE 1
@@ -411,8 +412,6 @@ p.anio || "";
 }
 
 function calcular(){
-
-alert("ENTRO A CALCULAR");
 
 const nombreTxt=
 document.getElementById("nombre").value.trim();
@@ -1076,9 +1075,8 @@ if(acciones){
 // COMPARTIR RESULTADO
 // =============================================
 
-function compartirResultado(){
 
-alert("COMPARTIR FUNCIONA");
+function compartirResultado(){
 
 }
 
@@ -1090,8 +1088,6 @@ alert("COMPARTIR FUNCIONA");
 
 function descargarPDF(){
 
-alert("PDF FUNCIONA");
-
 }
 
 
@@ -1102,8 +1098,6 @@ alert("PDF FUNCIONA");
 // =============================================
 
 function limpiarFormulario(){
-
-alert("LIMPIAR FUNCIONA");
 
 localStorage.removeItem(
 "zodiacoPro"
