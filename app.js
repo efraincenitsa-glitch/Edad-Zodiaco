@@ -1,3 +1,5 @@
+alert("APPJS CARGADO");
+
 // ==========================================
 // ZODIACO PREMIUM PRO
 // PARTE 1
