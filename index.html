@@ -269,36 +269,55 @@
 
     </section>
 
-    <!-- ACCIONES -->
+<!-- ACCIONES -->
 
-    <section
-        id="acciones"
-        class="card hidden"
-    >
+<section
+    id="acciones"
+    class="card hidden"
+>
 
-        <h2>📤 Opciones</h2>
+    <h2>📤 Opciones</h2>
 
-        <div class="acciones">
+    <div class="acciones">
 
-            <button id="btnCompartir">
-                Compartir Resultado
-            </button>
+        <button
+            id="btnCompartir"
+            type="button"
+            onclick="compartirResultado()"
+        >
+            Compartir Resultado
+        </button>
 
-            <button id="btnPdf">
-                Descargar PDF
-            </button>
+        <button
+            id="btnPdf"
+            type="button"
+            onclick="descargarPDF()"
+        >
+            Descargar PDF
+        </button>
 
-            <button id="btnLimpiar">
-                Limpiar
-            </button>
+        <button
+            id="btnLimpiar"
+            type="button"
+            onclick="limpiarFormulario()"
+        >
+            Limpiar
+        </button>
 
-        </div>
+    </div>
 
-    </section>
+</section>
+
 
 </div>
 
-<script src="app.js"></script>
+<script>
+
+alert("INDEX CARGADO");
+
+</script>
+
+<script src="app.js"/script>
 
 </body>
 </html>
